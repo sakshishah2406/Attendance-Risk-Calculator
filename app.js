@@ -28,3 +28,4 @@ function markAbsent(){
 }
 
 updateUI();
+console.log(attendancePercentage(18,2));
