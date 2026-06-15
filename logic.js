@@ -248,3 +248,22 @@ function getRiskStatus(subject) {
         };
     }
 }
+function predictAttendance(subject, futureBunks) {
+
+    let present = subject.present;
+    let absent = subject.absent;
+
+    let newAbsent =
+        absent + futureBunks;
+
+    let total =
+        present + newAbsent;
+
+    if (total === 0) {
+        return 0;
+    }
+
+    return (
+        (present / total) * 100
+    ).toFixed(2);
+}
