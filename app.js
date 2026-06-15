@@ -1,30 +1,73 @@
-let present = 0;
-let absent = 0;
+function saveSemesterData(){
 
-function updateUI(){
+    let startDate =
+    document.getElementById(
+    "startDate").value;
 
- let total = present + absent;
+    let endDate =
+    document.getElementById(
+    "endDate").value;
 
- let percentage = 0;
+    let minAttendance =
+    document.getElementById(
+    "minAttendance").value;
 
- if(total > 0){
-   percentage = (present / total) * 100;
- }
+    saveSemester(
+        startDate,
+        endDate,
+        minAttendance
+    );
 
- document.getElementById("present").innerText = present;
- document.getElementById("absent").innerText = absent;
- document.getElementById("percentage").innerText =
- percentage.toFixed(2) + "%";
+    alert("Semester Saved");
 }
 
-function markPresent(){
- present++;
- updateUI();
+function addSubjectData(){
+
+    let name =
+    document.getElementById(
+    "subjectName").value;
+
+    if(!name) return;
+
+    addSubject(name);
+
+    renderSubjects();
+
+    document.getElementById(
+    "subjectName").value = "";
 }
 
-function markAbsent(){
- absent++;
- updateUI();
+function renderSubjects(){
+
+    let subjects =
+    getSubjects();
+
+    let list =
+    document.getElementById(
+    "subjectList");
+
+    list.innerHTML = "";
+
+    subjects.forEach(
+    (subject,index)=>{
+
+        list.innerHTML += `
+        <li>
+            ${subject.name}
+            <button
+            onclick="removeSubject(${index})">
+            Delete
+            </button>
+        </li>
+        `;
+    });
 }
 
-updateUI();
+function removeSubject(index){
+
+    deleteSubject(index);
+
+    renderSubjects();
+}
+
+renderSubjects();

@@ -1,24 +1,59 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Attendance Risk Calculator</title>
-  <link rel="stylesheet" href="style.css">
+
+    <title>Attendance Risk Calculator</title>
+
+    <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
 <h1>Attendance Risk Calculator</h1>
 
-<div class="card">
-  <h3>DBMS</h3>
+<h2>Semester Setup</h2>
 
-  <p>Present: <span id="present">0</span></p>
-  <p>Absent: <span id="absent">0</span></p>
-  <p>Attendance: <span id="percentage">0%</span></p>
+<input
+type="date"
+id="startDate">
 
-  <button onclick="markPresent()">Present</button>
-  <button onclick="markAbsent()">Absent</button>
-</div>
+<br><br>
 
+<input
+type="date"
+id="endDate">
+
+<br><br>
+
+<input
+type="number"
+id="minAttendance"
+value="75">
+
+<br><br>
+
+<button onclick="saveSemesterData()">
+Save Semester
+</button>
+
+<hr>
+
+<h2>Subjects</h2>
+
+<input
+type="text"
+id="subjectName"
+placeholder="DBMS">
+
+<button onclick="addSubjectData()">
+Add Subject
+</button>
+
+<ul id="subjectList"></ul>
+
+<script src="logic.js"></script>
 <script src="app.js"></script>
 
 </body>

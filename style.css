@@ -1,17 +1,27 @@
 body{
-  font-family:Arial;
-  max-width:500px;
-  margin:auto;
-  padding:20px;
+
+    font-family:Arial;
+
+    max-width:600px;
+
+    margin:auto;
+
+    padding:20px;
 }
 
-.card{
-  border:1px solid #ddd;
-  padding:20px;
-  border-radius:10px;
+input{
+
+    padding:10px;
+
+    margin:5px;
 }
 
 button{
-  padding:10px;
-  margin:5px;
+
+    padding:10px;
+}
+
+li{
+
+    margin:10px 0;
 }
