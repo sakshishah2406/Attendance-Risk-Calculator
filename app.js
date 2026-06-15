@@ -137,18 +137,26 @@ function renderAttendanceScreen(){
 
 function markPresent(subjectName) {
 
-    markAttendance(subjectName,"P");
+    markAttendance(
+        subjectName,
+        "P"
+    );
 
     renderStats();
     renderBunkCalculator();
+    renderRiskDashboard();
 }
 
 function markAbsent(subjectName) {
 
-    markAttendance(subjectName,"A");
+    markAttendance(
+        subjectName,
+        "A"
+    );
 
     renderStats();
     renderBunkCalculator();
+    renderRiskDashboard();
 }
 
 function renderStats(){
@@ -212,8 +220,75 @@ function renderBunkCalculator() {
     });
 }
 
+function renderRiskDashboard() {
+
+    let subjects =
+        getSubjects();
+
+    let container =
+        document.getElementById(
+            "riskContainer"
+        );
+
+    container.innerHTML = "";
+
+    subjects.forEach(subject => {
+
+        let risk =
+            getRiskStatus(subject);
+
+        let attendance =
+            getAttendancePercentage(
+                subject
+            );
+
+        let bunks =
+            getBunkBudget(
+                subject
+            );
+
+        container.innerHTML += `
+
+        <div
+        style="
+        border:1px solid #ddd;
+        padding:10px;
+        margin:10px 0;
+        border-radius:10px;
+        ">
+
+            <h3>
+            ${subject.name}
+            </h3>
+
+            <p>
+            Attendance:
+            ${attendance}%
+            </p>
+
+            <p>
+            Bunks Left:
+            ${bunks}
+            </p>
+
+            <p
+            style="
+            color:${risk.color};
+            font-weight:bold;
+            ">
+
+            ${risk.status}
+
+            </p>
+
+        </div>
+        `;
+    });
+}
+
 renderSubjects();
 renderTimetable();
 renderAttendanceScreen();
 renderStats();
 renderBunkCalculator();
+renderRiskDashboard();
