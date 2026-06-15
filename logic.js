@@ -46,23 +46,86 @@ function simulateBunk(present, absent, futureBunks) {
     let newAbsent = absent + futureBunks;
     let total = present + newAbsent;
 
+    if (total === 0) return 0;
+
     return ((present / total) * 100).toFixed(2);
 }
 
-/*console.log("Attendance:", attendancePercentage(18, 2) + "%");
-console.log("Bunks Left:", bunkBudget(60, 50));
-console.log("After 5 More Bunks:", simulateBunk(50, 10, 5) + "%");*/
+// Subject Stats
 
 function getSubjectStats(subject) {
-
     let total = subject.present + subject.absent;
 
     let percentage =
-        ((subject.present / total) * 100).toFixed(2);
+        total === 0
+            ? 0
+            : ((subject.present / total) * 100).toFixed(2);
 
     return {
         name: subject.name,
         total,
         percentage
     };
+}
+
+// Semester
+
+function saveSemester(startDate, endDate, minAttendance) {
+
+    const semester = {
+        startDate,
+        endDate,
+        minAttendance
+    };
+
+    localStorage.setItem(
+        "semester",
+        JSON.stringify(semester)
+    );
+}
+
+function loadSemester() {
+
+    return JSON.parse(
+        localStorage.getItem("semester")
+    );
+}
+
+// Subjects
+
+function getSubjects() {
+
+    return JSON.parse(
+        localStorage.getItem("subjects")
+    ) || [];
+}
+
+function saveSubjects(subjects) {
+
+    localStorage.setItem(
+        "subjects",
+        JSON.stringify(subjects)
+    );
+}
+
+function addSubject(name) {
+
+    let subjects = getSubjects();
+
+    subjects.push({
+        name,
+        present: 0,
+        absent: 0
+    });
+
+    saveSubjects(subjects);
+}
+
+function deleteSubject(index) {
+
+    let subjects = getSubjects();
+
+    subjects.splice(index, 1);
+
+    saveSubjects(subjects);
 }
