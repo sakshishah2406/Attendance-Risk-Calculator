@@ -179,3 +179,28 @@ function getAttendancePercentage(subject){
         (subject.present / total) * 100
     ).toFixed(2);
 }
+function getBunkBudget(subject) {
+
+    let total =
+        subject.present +
+        subject.absent;
+
+    let required =
+        Math.ceil(total * 0.75);
+
+    return subject.present - required;
+}
+function simulateBunk(subject, futureBunks) {
+
+    let newAbsent =
+        subject.absent + futureBunks;
+
+    let total =
+        subject.present + newAbsent;
+
+    if (total === 0) return 0;
+
+    return (
+        (subject.present / total) * 100
+    ).toFixed(2);
+}
