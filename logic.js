@@ -181,14 +181,36 @@ function getAttendancePercentage(subject){
 }
 function getBunkBudget(subject) {
 
-    let total =
-        subject.present +
-        subject.absent;
+    let present = subject.present;
+    let absent = subject.absent;
 
-    let required =
-        Math.ceil(total * 0.75);
+    let total = present + absent;
 
-    return subject.present - required;
+    let bunks = 0;
+
+    while (
+        (present / (total + bunks)) * 100 >= 75
+    ) {
+        bunks++;
+    }
+
+    return bunks - 1;
+}function getBunkBudget(subject) {
+
+    let present = subject.present;
+    let absent = subject.absent;
+
+    let total = present + absent;
+
+    let bunks = 0;
+
+    while (
+        (present / (total + bunks)) * 100 >= 75
+    ) {
+        bunks++;
+    }
+
+    return bunks - 1;
 }
 function simulateBunk(subject, futureBunks) {
 
