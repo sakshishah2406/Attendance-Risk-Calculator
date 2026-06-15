@@ -97,5 +97,89 @@ function renderTimetable() {
     });
 }
 
+
+function renderAttendanceScreen(){
+
+    let subjects =
+    getSubjects();
+
+    let container =
+    document.getElementById(
+        "attendanceContainer"
+    );
+
+    container.innerHTML = "";
+
+    subjects.forEach(subject => {
+
+        container.innerHTML += `
+
+        <div>
+
+            <h3>${subject.name}</h3>
+
+            <button
+            onclick="markPresent('${subject.name}')">
+            Present
+            </button>
+
+            <button
+            onclick="markAbsent('${subject.name}')">
+            Absent
+            </button>
+
+        </div>
+
+        <br>
+        `;
+    });
+}
+
+function markPresent(subject){
+
+    markAttendance(subject,"P");
+
+    renderStats();
+}
+
+function markAbsent(subject){
+
+    markAttendance(subject,"A");
+
+    renderStats();
+}
+
+function renderStats(){
+
+    let subjects =
+    getSubjects();
+
+    let container =
+    document.getElementById(
+        "statsContainer"
+    );
+
+    container.innerHTML = "";
+
+    subjects.forEach(subject => {
+
+        container.innerHTML += `
+
+        <p>
+
+        ${subject.name}
+
+        -
+
+        ${getAttendancePercentage(subject)}%
+
+        </p>
+
+        `;
+    });
+}
+
 renderSubjects();
 renderTimetable();
+renderAttendanceScreen();
+renderStats();
