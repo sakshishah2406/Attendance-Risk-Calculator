@@ -226,3 +226,25 @@ function simulateBunk(subject, futureBunks) {
         (subject.present / total) * 100
     ).toFixed(2);
 }
+function getRiskStatus(subject) {
+
+    let attendance =
+        parseFloat(
+            getAttendancePercentage(subject)
+        );
+
+    if (attendance >= 75) {
+
+        return {
+            status: "SAFE",
+            color: "green"
+        };
+
+    } else {
+
+        return {
+            status: "AT RISK",
+            color: "red"
+        };
+    }
+}
