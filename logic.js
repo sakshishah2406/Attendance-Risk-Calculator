@@ -129,3 +129,19 @@ function deleteSubject(index) {
 
     saveSubjects(subjects);
 }
+// Timetable
+
+function saveTimetable(timetable) {
+
+    localStorage.setItem(
+        "timetable",
+        JSON.stringify(timetable)
+    );
+}
+
+function loadTimetable() {
+
+    return JSON.parse(
+        localStorage.getItem("timetable")
+    ) || {};
+}
