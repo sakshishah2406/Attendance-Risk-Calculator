@@ -1,16 +1,13 @@
-function saveSemesterData(){
+function saveSemesterData() {
 
     let startDate =
-    document.getElementById(
-    "startDate").value;
+        document.getElementById("startDate").value;
 
     let endDate =
-    document.getElementById(
-    "endDate").value;
+        document.getElementById("endDate").value;
 
     let minAttendance =
-    document.getElementById(
-    "minAttendance").value;
+        document.getElementById("minAttendance").value;
 
     saveSemester(
         startDate,
@@ -21,53 +18,84 @@ function saveSemesterData(){
     alert("Semester Saved");
 }
 
-function addSubjectData(){
+function addSubjectData() {
 
     let name =
-    document.getElementById(
-    "subjectName").value;
+        document.getElementById("subjectName").value;
 
-    if(!name) return;
+    if (!name) return;
 
     addSubject(name);
 
     renderSubjects();
 
     document.getElementById(
-    "subjectName").value = "";
+        "subjectName"
+    ).value = "";
+
+    renderTimetable();
 }
 
-function renderSubjects(){
+function renderSubjects() {
 
-    let subjects =
-    getSubjects();
+    let subjects = getSubjects();
 
     let list =
-    document.getElementById(
-    "subjectList");
+        document.getElementById(
+            "subjectList"
+        );
 
     list.innerHTML = "";
 
     subjects.forEach(
-    (subject,index)=>{
+        (subject, index) => {
 
-        list.innerHTML += `
-        <li>
-            ${subject.name}
-            <button
-            onclick="removeSubject(${index})">
-            Delete
-            </button>
-        </li>
-        `;
-    });
+            list.innerHTML += `
+            <li>
+                ${subject.name}
+                <button onclick="removeSubject(${index})">
+                    Delete
+                </button>
+            </li>
+            `;
+        }
+    );
 }
 
-function removeSubject(index){
+function removeSubject(index) {
 
     deleteSubject(index);
 
     renderSubjects();
+    renderTimetable();
+}
+
+function renderTimetable() {
+
+    let subjects = getSubjects();
+
+    let table =
+        document.getElementById(
+            "timetableBody"
+        );
+
+    table.innerHTML = "";
+
+    subjects.forEach(subject => {
+
+        table.innerHTML += `
+        <tr>
+            <td>${subject.name}</td>
+
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
+            <td><input type="checkbox"></td>
+        </tr>
+        `;
+    });
 }
 
 renderSubjects();
+renderTimetable();
