@@ -135,18 +135,20 @@ function renderAttendanceScreen(){
     });
 }
 
-function markPresent(subject){
+function markPresent(subjectName) {
 
-    markAttendance(subject,"P");
+    markAttendance(subjectName,"P");
 
     renderStats();
+    renderBunkCalculator();
 }
 
-function markAbsent(subject){
+function markAbsent(subjectName) {
 
-    markAttendance(subject,"A");
+    markAttendance(subjectName,"A");
 
     renderStats();
+    renderBunkCalculator();
 }
 
 function renderStats(){
@@ -179,7 +181,39 @@ function renderStats(){
     });
 }
 
+function renderBunkCalculator() {
+
+    let subjects =
+        getSubjects();
+
+    let container =
+        document.getElementById(
+            "bunkContainer"
+        );
+
+    container.innerHTML = "";
+
+    subjects.forEach(subject => {
+
+        container.innerHTML += `
+        <div>
+
+            <h3>${subject.name}</h3>
+
+            <p>
+            Bunks Left:
+            ${getBunkBudget(subject)}
+            </p>
+
+        </div>
+
+        <hr>
+        `;
+    });
+}
+
 renderSubjects();
 renderTimetable();
 renderAttendanceScreen();
 renderStats();
+renderBunkCalculator();
