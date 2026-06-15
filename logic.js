@@ -145,3 +145,37 @@ function loadTimetable() {
         localStorage.getItem("timetable")
     ) || {};
 }
+function markAttendance(subjectName, status) {
+
+    let subjects = getSubjects();
+
+    subjects = subjects.map(subject => {
+
+        if(subject.name === subjectName){
+
+            if(status === "P"){
+                subject.present++;
+            }
+
+            if(status === "A"){
+                subject.absent++;
+            }
+        }
+
+        return subject;
+    });
+
+    saveSubjects(subjects);
+}
+
+function getAttendancePercentage(subject){
+
+    let total =
+    subject.present + subject.absent;
+
+    if(total === 0) return 0;
+
+    return (
+        (subject.present / total) * 100
+    ).toFixed(2);
+}
