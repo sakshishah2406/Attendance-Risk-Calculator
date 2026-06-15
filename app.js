@@ -286,9 +286,99 @@ function renderRiskDashboard() {
     });
 }
 
+function renderPredictor() {
+
+    let subjects =
+        getSubjects();
+
+    let container =
+        document.getElementById(
+            "predictorContainer"
+        );
+
+    container.innerHTML = "";
+
+    subjects.forEach(subject => {
+
+        container.innerHTML += `
+
+        <div>
+
+            <h3>${subject.name}</h3>
+
+            <input
+            type="number"
+            min="0"
+            value="0"
+            id="future-${subject.name}"
+            >
+
+            <button
+            onclick="calculatePrediction('${subject.name}')">
+
+            Predict
+
+            </button>
+
+            <p
+            id="result-${subject.name}">
+            </p>
+
+        </div>
+
+        <hr>
+        `;
+    });
+}
+
+function calculatePrediction(
+    subjectName
+) {
+
+    let subjects =
+        getSubjects();
+
+    let subject =
+        subjects.find(
+            s => s.name === subjectName
+        );
+
+    let futureBunks =
+        parseInt(
+            document.getElementById(
+                `future-${subjectName}`
+            ).value
+        );
+
+    let prediction =
+        predictAttendance(
+            subject,
+            futureBunks
+        );
+
+    let result =
+        document.getElementById(
+            `result-${subjectName}`
+        );
+
+    result.innerHTML =
+        `Future Attendance: ${prediction}%`;
+
+    if(prediction < 75){
+
+        result.innerHTML +=
+        " ⚠️ AT RISK";
+
+    } else {
+
+        result.innerHTML +=
+        " ✅ SAFE";
+    }
+}
 renderSubjects();
 renderTimetable();
 renderAttendanceScreen();
 renderStats();
 renderBunkCalculator();
 renderRiskDashboard();
+renderPredictor();
