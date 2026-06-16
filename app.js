@@ -494,7 +494,7 @@ function markExtraAbsent(
     refreshAll();
 }
 
-function refreshAll(){
+   function refreshAll(){
 
     renderSubjects();
     renderTimetable();
@@ -505,3 +505,5 @@ function refreshAll(){
     renderPredictor();
     renderExtraLecture();
 }
+
+refreshAll();

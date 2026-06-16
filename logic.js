@@ -354,7 +354,8 @@ function addExtraLecture(
         });
 
     saveSubjects(subjects);
-}function addExtraLecture(
+}
+function addExtraLecture(
     subjectName,
     attended
 ){
