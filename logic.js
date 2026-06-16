@@ -421,3 +421,43 @@ function getExtraLectures(
         ?.extraLectures
     ) || [];
 }
+
+function cancelLecture(subjectName){
+
+    let subjects =
+        getSubjects();
+
+    subjects =
+        subjects.map(subject => {
+
+            if(
+                subject.name ===
+                subjectName
+            ){
+
+                let total =
+                    subject.present +
+                    subject.absent;
+
+                if(total > 0){
+
+                    if(
+                        subject.absent > 0
+                    ){
+
+                        subject.absent--;
+
+                    }else if(
+                        subject.present > 0
+                    ){
+
+                        subject.present--;
+                    }
+                }
+            }
+
+            return subject;
+        });
+
+    saveSubjects(subjects);
+}
