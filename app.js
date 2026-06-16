@@ -98,17 +98,25 @@ function renderTimetable() {
 }
 
 
-function renderAttendanceScreen(){
+function renderAttendanceScreen() {
 
     let subjects =
-    getSubjects();
+        getTodaysSubjects();
 
     let container =
-    document.getElementById(
-        "attendanceContainer"
-    );
+        document.getElementById(
+            "attendanceContainer"
+        );
 
     container.innerHTML = "";
+
+    if(subjects.length === 0){
+
+        container.innerHTML =
+        "<p>No classes today</p>";
+
+        return;
+    }
 
     subjects.forEach(subject => {
 
@@ -116,7 +124,9 @@ function renderAttendanceScreen(){
 
         <div>
 
-            <h3>${subject.name}</h3>
+            <h3>
+            ${subject.name}
+            </h3>
 
             <button
             onclick="markPresent('${subject.name}')">
