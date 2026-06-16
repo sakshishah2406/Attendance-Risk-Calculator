@@ -311,7 +311,7 @@ function getTodaysSubjects() {
 function addExtraLecture(
     subjectName,
     attended
-) {
+){
 
     let subjects =
         getSubjects();
@@ -323,6 +323,22 @@ function addExtraLecture(
                 subject.name ===
                 subjectName
             ){
+
+                if(
+                    !subject.extraLectures
+                ){
+                    subject.extraLectures = [];
+                }
+
+                subject.extraLectures.push({
+
+                    date:
+                    new Date()
+                    .toLocaleDateString(),
+
+                    attended:
+                    attended
+                });
 
                 if(attended){
 
@@ -338,4 +354,69 @@ function addExtraLecture(
         });
 
     saveSubjects(subjects);
+}function addExtraLecture(
+    subjectName,
+    attended
+){
+
+    let subjects =
+        getSubjects();
+
+    subjects =
+        subjects.map(subject => {
+
+            if(
+                subject.name ===
+                subjectName
+            ){
+
+                if(
+                    !subject.extraLectures
+                ){
+                    subject.extraLectures = [];
+                }
+
+                subject.extraLectures.push({
+
+                    date:
+                    new Date()
+                    .toLocaleDateString(),
+
+                    attended:
+                    attended
+                });
+
+                if(attended){
+
+                    subject.present++;
+
+                }else{
+
+                    subject.absent++;
+                }
+            }
+
+            return subject;
+        });
+
+    saveSubjects(subjects);
+}
+function getExtraLectures(
+    subjectName
+){
+
+    let subjects =
+        getSubjects();
+
+    let subject =
+        subjects.find(
+            s =>
+            s.name ===
+            subjectName
+        );
+
+    return (
+        subject
+        ?.extraLectures
+    ) || [];
 }
