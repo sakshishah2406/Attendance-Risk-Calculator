@@ -307,3 +307,35 @@ function getTodaysSubjects() {
         return false;
     });
 }
+
+function addExtraLecture(
+    subjectName,
+    attended
+) {
+
+    let subjects =
+        getSubjects();
+
+    subjects =
+        subjects.map(subject => {
+
+            if(
+                subject.name ===
+                subjectName
+            ){
+
+                if(attended){
+
+                    subject.present++;
+
+                }else{
+
+                    subject.absent++;
+                }
+            }
+
+            return subject;
+        });
+
+    saveSubjects(subjects);
+}
