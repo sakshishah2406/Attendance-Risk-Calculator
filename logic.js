@@ -461,3 +461,25 @@ function cancelLecture(subjectName){
 
     saveSubjects(subjects);
 }
+
+function saveLectureSlot(slot){
+
+    let slots =
+        loadLectureSlots();
+
+    slots.push(slot);
+
+    localStorage.setItem(
+        "lectureSlots",
+        JSON.stringify(slots)
+    );
+}
+
+function loadLectureSlots(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            "lectureSlots"
+        )
+    ) || [];
+}
