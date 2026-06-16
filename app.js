@@ -385,10 +385,123 @@ function calculatePrediction(
         " ✅ SAFE";
     }
 }
-renderSubjects();
-renderTimetable();
-renderAttendanceScreen();
-renderStats();
-renderBunkCalculator();
-renderRiskDashboard();
-renderPredictor();
+
+function renderExtraLecture(){
+
+    let subjects =
+        getSubjects();
+
+    let container =
+        document.getElementById(
+            "extraLectureContainer"
+        );
+
+    container.innerHTML = "";
+
+    subjects.forEach(subject => {
+
+        let count =
+        getExtraLectures(
+            subject.name
+        ).length;
+
+        let history =
+getExtraLectures(
+    subject.name
+);
+
+let historyHtml = "";
+
+history.forEach(lecture => {
+
+    historyHtml += `
+    <li>
+        ${lecture.date} -
+        ${
+            lecture.attended
+            ? "Present"
+            : "Absent"
+        }
+    </li>
+    `;
+});
+        
+        container.innerHTML += `
+
+        <div>
+
+            <h3>
+            ${subject.name}
+            </h3>
+
+            <p>
+            Extra Lectures:
+            ${count}
+            </p>
+
+
+            <ul>
+${historyHtml}
+</ul>
+            <button
+            onclick="
+            markExtraPresent(
+            '${subject.name}'
+            )">
+
+            Extra Present
+
+            </button>
+
+            <button
+            onclick="
+            markExtraAbsent(
+            '${subject.name}'
+            )">
+
+            Extra Absent
+
+            </button>
+
+        </div>
+
+        <hr>
+        `;
+    });
+}
+
+function markExtraPresent(
+    subjectName
+){
+
+    addExtraLecture(
+        subjectName,
+        true
+    );
+
+    refreshAll();
+}
+
+function markExtraAbsent(
+    subjectName
+){
+
+    addExtraLecture(
+        subjectName,
+        false
+    );
+
+    refreshAll();
+}
+
+function refreshAll(){
+
+    renderSubjects();
+    renderTimetable();
+    renderAttendanceScreen();
+    renderStats();
+    renderBunkCalculator();
+    renderRiskDashboard();
+    renderPredictor();
+    renderExtraLecture();
+}
