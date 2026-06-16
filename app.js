@@ -544,6 +544,106 @@ function cancelSubjectLecture(
     refreshAll();
 }
 
+function populateSubjects(){
+
+    let subjects =
+        getSubjects();
+
+    let dropdown =
+        document.getElementById(
+            "slotSubject"
+        );
+
+    dropdown.innerHTML = "";
+
+    subjects.forEach(subject => {
+
+        dropdown.innerHTML += `
+
+        <option>
+
+        ${subject.name}
+
+        </option>
+
+        `;
+    });
+}
+
+
+function addLectureSlot(){
+
+    let subject =
+        document.getElementById(
+            "slotSubject"
+        ).value;
+
+    let day =
+        document.getElementById(
+            "slotDay"
+        ).value;
+
+    let startTime =
+        document.getElementById(
+            "startTime"
+        ).value;
+
+    let endTime =
+        document.getElementById(
+            "endTime"
+        ).value;
+
+    saveLectureSlot({
+
+        subject,
+        day,
+        startTime,
+        endTime
+
+    });
+
+    renderLectureSlots();
+}
+
+function renderLectureSlots(){
+
+    let slots =
+        loadLectureSlots();
+
+    let container =
+        document.getElementById(
+            "slotContainer"
+        );
+
+    container.innerHTML = "";
+
+    slots.forEach(slot => {
+
+        container.innerHTML += `
+
+        <div>
+
+        ${slot.subject}
+
+        -
+
+        ${slot.day}
+
+        -
+
+        ${slot.startTime}
+
+        to
+
+        ${slot.endTime}
+
+        </div>
+
+        <br>
+        `;
+    });
+}
+
    function refreshAll(){
 
     renderSubjects();
@@ -555,6 +655,9 @@ function cancelSubjectLecture(
     renderPredictor();
     renderExtraLecture();
     renderCancelLecture();
+
+    populateSubjects();
+    renderLectureSlots();
 }
 
 refreshAll();
