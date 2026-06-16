@@ -267,3 +267,43 @@ function predictAttendance(subject, futureBunks) {
         (present / total) * 100
     ).toFixed(2);
 }
+function getTodayDay() {
+
+    const days = [
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"
+    ];
+
+    return days[new Date().getDay()];
+}
+
+function getTodaysSubjects() {
+
+    const timetable =
+        loadTimetable();
+
+    const today =
+        getTodayDay();
+
+    const subjects =
+        getSubjects();
+
+    return subjects.filter(subject => {
+
+        if (
+            timetable[subject.name]
+        ) {
+
+            return timetable[
+                subject.name
+            ][today];
+        }
+
+        return false;
+    });
+}
