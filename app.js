@@ -494,6 +494,56 @@ function markExtraAbsent(
     refreshAll();
 }
 
+function renderCancelLecture(){
+
+    let subjects =
+        getSubjects();
+
+    let container =
+        document.getElementById(
+            "cancelLectureContainer"
+        );
+
+    container.innerHTML = "";
+
+    subjects.forEach(subject => {
+
+        container.innerHTML += `
+
+        <div>
+
+            <h3>
+            ${subject.name}
+            </h3>
+
+            <button
+            onclick="
+            cancelSubjectLecture(
+            '${subject.name}'
+            )">
+
+            Cancel Lecture
+
+            </button>
+
+        </div>
+
+        <hr>
+        `;
+    });
+}
+
+function cancelSubjectLecture(
+    subjectName
+){
+
+    cancelLecture(
+        subjectName
+    );
+
+    refreshAll();
+}
+
    function refreshAll(){
 
     renderSubjects();
@@ -504,6 +554,7 @@ function markExtraAbsent(
     renderRiskDashboard();
     renderPredictor();
     renderExtraLecture();
+    renderCancelLecture();
 }
 
 refreshAll();
